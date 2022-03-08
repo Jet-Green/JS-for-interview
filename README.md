@@ -8,6 +8,7 @@
 ### - [Операторы *Rest* и *Spread*](#rest_spread)
 ### - [Оператор `new`](#new)
 ### - [*Prototype*](#proto)
+### - [*Асинхронность*](#async)
 ## <a name="types">Типы данных</a>
 #### Существует 6 типов данных:  
   1. `null` и `undefined`
@@ -422,3 +423,22 @@ console.log(myYear.year)
 2022
 2222
 ```
+## <a name="async">Асинхронность</a>
+```js
+const first = () => console.log('first')
+const second = () => console.log('second')
+const third = () => console.log('third')
+
+first()
+
+setTimeout(second, 0)
+
+third()
+```
+#### В консоль будет выведено:
+```
+first
+third
+second
+```
+#### Причина такого ~~странного~~ поведения кроется в ... ***Cooming Soon***
