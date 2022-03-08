@@ -186,7 +186,7 @@ for (var i = 0; i < 5; i++) {
 #### То есть, на каждой итерации мы просто копировали значение `i` в область видимости создаваемой функции
 #### Таким образом, *IIFE* используется для создания локального *Scope*
 
-## Контекст `this` и методы `call` `bind` `apply`
+## Контекст выполнения `this` и методы `call` `bind` `apply`
 #### Рассмотрим фрагмент кода:
 ```js
 const person = {
@@ -295,3 +295,53 @@ new Cat('red')
 this: cat { color: 'red' }
 this in arrow func: cat { color: 'red' }
 ```
+
+## Операторы *Rest* и *Spread*
+#### Оператор *Spread* разворачивает массив. Его синтаксис - `...arr`
+```js
+function sum(a, b, c) {
+    return a + b + c;
+}
+
+const arr = [1, 2, 3]
+
+console.log(sum(...arr));
+```
+#### В консоль будет выведено
+```
+6
+```
+#### Оператор *Rest* позволяет получать неограниченное количество аргументов в функцию, его синтаксис тот же, что и у *Spread*
+```js
+function personsQualities(name, surname, ...qualities) {
+    return name + ' ' + surname + "'s " + 'qualities: ' + qualities
+}
+
+console.log(personsQualities('John', 'Johnson', 'kind', 'hardworking'))
+```
+#### В консоль будет выведено
+```
+John Johnson's qualities: kind,hardworking
+```
+## Оператор `new`
+#### Могут спросить также механизм работы оператора `new`
+```js
+function Cat(color, name) {
+    this.color = color
+    this.name = name
+}
+// нативная реализация в ES5
+function myNew(constructor, ...args) {
+    // Тут мы создаём объект, который необходимо вернуть
+    const obj = {}
+    // Ставим нужный прототип, который содержит методы класса
+    Object.setPrototypeOf(obj, constructor.prototype)
+    // Меняем контекст выполнения функции Cat
+    return constructor.apply(obj, args) || obj
+}
+
+const cat = myNew(Cat, 'black', 'CAT')
+
+console.log(cat);
+```
+#### Происходит всё то же самое, что и при использовании `new`
