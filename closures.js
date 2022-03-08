@@ -1,15 +1,15 @@
-// function sayHelloTo(name) {
-//     const m = 'Hello ' + name;
-//
-//     // Вся суть в том, что эта функция имеет доступ к scope её функции-родителя
-//     return function() {
-//         console.log(m)
-//     }
-// }
-//
-// const helloToElena = sayHelloTo('Elena')
-//
-// helloToElena()
+function sayHelloTo(name) {
+    const m = 'Hello ' + name;
+
+    // Вся суть в том, что эта функция имеет доступ к scope её функции-родителя
+    return function () {
+        console.log(m)
+    }
+}
+
+const helloToElena = sayHelloTo('Elena')
+
+helloToElena()
 
 // setTimeout
 const fib = [1, 1, 2, 3, 5, 8, 13]
@@ -26,7 +26,7 @@ for (var i = 0; i < fib.length; i++) {
 for (var i = 0; i < fib.length; i++) {
     (function (j) {
         setTimeout(function () {
-            console.log(`fib[${j}] = ${fib[j]}`)
+            console.log('fib[' + j + ']' + ' = ' + fib[j])
         }, 1000)
     })(i)
 }
