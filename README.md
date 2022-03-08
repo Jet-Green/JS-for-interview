@@ -1,7 +1,12 @@
 # Code examples for better understanding js basics
 ## Оглавление:
-- [Типы данных](#types)
-- [Scope](#scope)
+###- [Типы данных](#types)
+###- [*Scope*](#scope)
+###- [`let` `const` `var` и понятие *hoisting*](#let_const_var_hoisting)
+###- [*IIFE*](#iife)
+###- [Контекст выполнения `this` и методы `call` `bind` `apply`](#this_call_bind_apply)
+###- [Операторы *Rest* и *Spread*](#rest_spread)
+###- [Оператор `new`](#new)
 ## <a name="types">Типы данных</a>
 #### Существует 6 типов данных:  
   1. `null` и `undefined`
@@ -74,7 +79,9 @@ Var b
 #### Первый log происходит из нового *Scope*, поэтому выводится перезаписанная переменная `a`(она будет `new a`), к которой мы имеем доступ, так как находимся уровнем ниже. 
 #### Далее мы задаём переменную `b`, к которой мы не будем иметь доступа в родительской области видимости, поэтому 4 log выводит `Var b`. 
 #### 3 log выводит её новое значение `new a`, так как мы поменяли значение переменной `a` в новом *Scope*. 
-## `let` `const` `var` и понятие *hoisting*
+
+
+## <a name="let_const_var_hoisting">`let` `const` `var` и понятие *hoisting*</a>
 #### *hoisting* позволяет получить доступ к переменной до её инициализации
 #### `var` подвергается *hoisting*, а `let` и `const` - нет.
 #### При этом значение переменной, полученной до инициализации будет `undefined`. То есть, мы можем сделать так:
@@ -114,7 +121,7 @@ helloToElena()
 #### Результатом работы `helloToElena` будет `Hello Elena`
 #### Вся их суть в том, что возвращаемая функция имеет доступ к *Scope* родительской
 
-## *IIFE(Immediate Invoked Function Expression)*
+## <a name="iife">*IIFE(Immediate Invoked Function Expression)*</a>
 #### *IIFE* - функция, которая будет вызвана немедленно
 #### В первых скобках - функция, которая будет вызвана немедленно и она принимает аргументы, переданные во вторые скобки:
 ```js
@@ -189,7 +196,7 @@ for (var i = 0; i < 5; i++) {
 #### То есть, на каждой итерации мы просто копировали значение `i` в область видимости создаваемой функции
 #### Таким образом, *IIFE* используется для создания локального *Scope*
 
-## Контекст выполнения `this` и методы `call` `bind` `apply`
+## <a name="this_call_bind_apply">Контекст выполнения `this` и методы `call` `bind` `apply`</a>
 #### Рассмотрим фрагмент кода:
 ```js
 const person = {
@@ -299,7 +306,7 @@ this: cat { color: 'red' }
 this in arrow func: cat { color: 'red' }
 ```
 
-## Операторы *Rest* и *Spread*
+## <a name="rest_spread">Операторы *Rest* и *Spread*</a>
 #### Оператор *Spread* разворачивает массив. Его синтаксис - `...arr`
 ```js
 function sum(a, b, c) {
@@ -326,7 +333,7 @@ console.log(personsQualities('John', 'Johnson', 'kind', 'hardworking'))
 ```
 John Johnson's qualities: kind,hardworking
 ```
-## Оператор `new`
+## <a name="new">Оператор `new`</a>
 #### Могут спросить также механизм работы оператора `new`
 ```js
 function Cat(color, name) {
