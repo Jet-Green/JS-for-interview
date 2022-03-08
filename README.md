@@ -1,12 +1,12 @@
 # Code examples for better understanding js basics
 ## Оглавление:
-###- [Типы данных](#types)
-###- [*Scope*](#scope)
-###- [`let` `const` `var` и понятие *hoisting*](#let_const_var_hoisting)
-###- [*IIFE*](#iife)
-###- [Контекст выполнения `this` и методы `call` `bind` `apply`](#this_call_bind_apply)
-###- [Операторы *Rest* и *Spread*](#rest_spread)
-###- [Оператор `new`](#new)
+### - [Типы данных](#types)
+### - [*Scope*](#scope)
+### - [`let` `const` `var` и понятие *hoisting*](#let_const_var_hoisting)
+### - [*IIFE*](#iife)
+### - [Контекст выполнения `this` и методы `call` `bind` `apply`](#this_call_bind_apply)
+### - [Операторы *Rest* и *Spread*](#rest_spread)
+### - [Оператор `new`](#new)
 ## <a name="types">Типы данных</a>
 #### Существует 6 типов данных:  
   1. `null` и `undefined`
