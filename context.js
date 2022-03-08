@@ -20,8 +20,8 @@ const john = {
 
 // функция - это объект
 function Person(name, age) {
-    this.name = 'name';
-    this.age = 'age';
+    this.name = name;
+    this.age = age;
 
     console.log(this);
 }
@@ -48,10 +48,10 @@ const animal = {
 }
 // animal.logThis()
 
-function cat(color) {
+function Cat(color) {
     this.color = color
     console.log('this', this);
-    ( () => console.log('Arrowed this', this) )()
+    (() => console.log('this in arrow func: ', this))()
 }
 
-new cat('red')
+new Cat('red')

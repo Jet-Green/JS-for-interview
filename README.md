@@ -185,3 +185,113 @@ for (var i = 0; i < 5; i++) {
 ```
 #### То есть, на каждой итерации мы просто копировали значение `i` в область видимости создаваемой функции
 #### Таким образом, *IIFE* используется для создания локального *Scope*
+
+## Контекст `this` и методы `call` `bind` `apply`
+#### Рассмотрим фрагмент кода:
+```js
+const person = {
+    surname: 'Markson',
+    knows: function (what, name) {
+        console.log(`You knows ${what}, ${name} ${this.surname}`)
+    }
+}
+
+person.knows('all', 'Mark')
+```
+#### В консоль будет выведено
+```
+You knows all Mark Markson
+```
+#### Функция `knows` создаёт свой контекст, но она находится уже в контексте объекта `person`, поэтому имеет доступ к его переменным
+#### С помощью функций `call`, `bind` и `apply` мы можем менять контекст вызова функции
+#### Синтаксис:
+```js
+const someObj = {
+    v: 123,
+    someFunc: function () {
+        return v;
+    }
+}
+
+someObj.someFunc.call(context, arg1, arg2, arg3)
+someObj.someFunc.apply(context, arrayOfArgs)
+someObj.someFunc.bind(context, arg1, arg2, arg3)()
+```
+#### Первым аргументом всегда передаётся новый контекст выполнения
+#### `call` отличается от `apply` тем, что аргументы передаются через запятую, а в `apply` массивом. 
+#### `bind` отличается от них тем, что возвращает функцию, а они вызывают её
+#### Создадим новый объект `john` с полем `surname`, чтобы использовать это поле при изменении контекста
+```js
+const john = {
+    surname: 'Johnson'
+}
+```
+#### Таким образом, мы можем использовать методы `call`, `bind` и `apply`:
+```js
+person.knows('all', 'Mark')
+
+person.knows.call(john, 'nothing', 'John')
+person.knows.apply(john, ['nothing', 'John'])
+person.knows.bind(john, 'nothing', 'John')()
+```
+#### В консоль будет выведено
+```
+You knows all, Mark Markson
+You knows nothing, John Johnson
+You knows nothing, John Johnson
+You knows nothing, John Johnson
+```
+#### То есть, здесь мы просто меняли контекст выполнения функции `knows`
+#### В JS есть возможность создавать объекты из функций, подобно тому, как это обычно делается из классов, потому что функция имеет свой контекст, как и класс с объектами.
+```js
+function Person(name, age) {
+    this.name = 'name';
+    this.age = 'age';
+
+    console.log(this);
+}
+
+const elena = new Person('Elena', 20)
+```
+#### Существует 2 типа передачи контекста: *явный* и *неявный*
+#### Явный:
+```js
+function logThis() {
+    console.log(this);
+}
+
+const obj = { age: 12 }
+
+logThis.apply(obj)
+logThis.call(obj)
+logThis.bind(obj)()
+```
+#### Мы прямым образом передаём контекст выполнения
+#### Неявный:
+```js
+const animal = {
+    legs: 4,
+    logThis: function () {
+        console.log(this);
+    }
+}
+
+animal.logThis()
+```
+#### Неявная передача, так как выводится контекст той функции(объекта), в которой был вызван этот метод
+#### Также можно использовать много всего, например *IIFE*
+```js
+function Cat(color) {
+    this.color = color
+    console.log('this:', this);
+    // тут используется стрелочная функция вместо обычной
+    (() => console.log('this in arrow func:', this))()
+}
+
+new Cat('red')
+```
+#### В консоль будет выведено
+```
+this: cat { color: 'red' }
+this in arrow func: cat { color: 'red' }
+```
