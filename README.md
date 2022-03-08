@@ -7,6 +7,7 @@
 ### - [Контекст выполнения `this` и методы `call` `bind` `apply`](#this_call_bind_apply)
 ### - [Операторы *Rest* и *Spread*](#rest_spread)
 ### - [Оператор `new`](#new)
+### - [*Prototype*](#proto)
 ## <a name="types">Типы данных</a>
 #### Существует 6 типов данных:  
   1. `null` и `undefined`
@@ -355,3 +356,69 @@ const cat = myNew(Cat, 'black', 'CAT')
 console.log(cat);
 ```
 #### Происходит всё то же самое, что и при использовании `new`
+
+## <a name="proto">*Prototype*</a>
+#### В прототипе содержатся все свойства и методы, наследованные от родительского класса.
+#### Для получения прототипа используется свойство `__proto__` с ES5, раньше было `Object.getPrototypeOf()`
+#### Можно добавлять свойства в прототип:
+```js
+function Cat(name, color) {
+    this.name = name;
+    this.color = color
+}
+
+Cat.prototype.voice = function () {
+    console.log(`Cat ${this.name} says meow`)
+}
+
+const cat = new Cat('Jack', 'white')
+
+cat.voice()
+```
+#### В консоль будет выведено:
+```
+Cat Jack says meow
+```
+#### Можно проверить, есть ли свойство с помощью оператора `in`, а для того, чтобы проверить, если ли у этого объекта собственное свойство `hasOwnProperty(propertyName)`
+```js
+function Person() {}
+
+Person.prototype.legs = 2
+
+const person = new Person()
+person.name = 'Grisha'
+
+console.log('name' in person)
+console.log(person.hasOwnProperty('legs'))
+```
+#### Результат:
+```
+true
+false
+```
+#### Также инстанс класса можно создать с помощью `Object.create(object)`
+```js
+const proto = { year: 2022 }
+const myYear = Object.create(proto)
+
+console.log(myYear.year)
+```
+#### Результат:
+```
+2022
+```
+#### Но тут есть проблема - если поменять что-то в родительском прототипе, то изменения коснутся и ребёнка
+```js
+const proto = { year: 2022 }
+const myYear = Object.create(proto)
+
+console.log(myYear.year)
+
+proto.year = 2222
+console.log(myYear.year)
+```
+#### Результат:
+```
+2022
+2222
+```
